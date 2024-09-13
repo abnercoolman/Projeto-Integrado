@@ -7,6 +7,9 @@ import FuncionarioCard from "../../components/FuncionarioCard";
 import supabase from "../../database/database";
 
 export default function Funcionarios({ route, navigation }) {
+  console.log("Funcionarios received route params:", route.params);
+  const { username } = route.params;
+
   const [deptFuncionario, setDeptFuncionario] = useState([
     "Todos",
     "Gerência",

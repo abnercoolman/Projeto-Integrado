@@ -4,32 +4,47 @@ import UserPhoto from "../UserPhoto";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import supabase from "../../database/database";
 
 export default function HomeHeader({ route, navigation }) {
-  const { username } = route.params ? route.params : { username: '' }; // Valor padrão se indefinido
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(true); // Estado de carregamento
+  console.log("HomeHeader received route prop:", route);
+
+  const { username } = route.params ? route.params : { username: "" };
+  const [loading, setLoading] = useState(true);
+  const [infoUsuarioMaster, setInfoUsuarioMaster] = useState([]);
 
   useEffect(() => {
-    async function teste() {
-      const valor = await AsyncStorage.getItem("email");
+    const fetchData = async () => {
+      try {
+        // Retrieve email from AsyncStorage
+        const storedEmail = await AsyncStorage.getItem("email");
+        if (storedEmail) {
+          // Fetch infoUsuarioMaster data
+          const { data, error } = await supabase
+            .from("infoUsuarioMaster")
+            .select("*");
 
-      if (valor != null) {
-        setEmail(valor);
-      } else setEmail("Erro!");
+          if (error) {
+            console.error("Error fetching master user:", error);
+          } else {
+            setInfoUsuarioMaster(data);
+          }
+        } else {
+          console.error("Email not found in AsyncStorage");
+        }
+      } catch (error) {
+        console.error("Error in fetchData:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      setLoading(false); // Indica que o carregamento terminou
-    }
-    teste();
-  });
+    fetchData();
+  }, []);
 
-  if (loading) {
-    return <ActivityIndicator />;
-  }
-
-  // const handleOpenPerfil = () => {
-  //   navigation.navigate("profile");
-  // };
+  const dadosUsuarioMasterFiltrado = infoUsuarioMaster.find(
+    (info) => info.emailUsuarioMaster === username
+  );
 
   const handleExitApp = () => {
     navigation.navigate("Login");
@@ -38,15 +53,22 @@ export default function HomeHeader({ route, navigation }) {
   return (
     <>
       <View style={styles.cabecalho}>
-        <TouchableOpacity /* onPress={handleOpenPerfil} */>
+        <TouchableOpacity>
           <View style={styles.nomeFoto}>
             <UserPhoto
               source={{ uri: "https://github.com/abnercoolman.png" }}
             />
             <View style={styles.textoCabecalho}>
               <Text style={styles.textoCumprimento}>Olá,</Text>
-              <Text style={styles.textoUsuario}>{username}</Text>
-              <Text style={styles.textoUsuario}>{email}</Text>
+              {loading ? (
+                <ActivityIndicator />
+              ) : dadosUsuarioMasterFiltrado ? (
+                <Text style={styles.textoUsuario}>
+                  {dadosUsuarioMasterFiltrado.nomeUsuarioMaster}
+                </Text>
+              ) : (
+                <Text style={styles.textoUsuario}>Usuário não encontrado</Text>
+              )}
             </View>
           </View>
         </TouchableOpacity>
