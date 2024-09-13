@@ -22,9 +22,6 @@ export default function Funcionarios({ route, navigation }) {
   const [dadosFuncionarios, setDadosFuncionarios] = useState([]);
   const [deptFuncionarioSelected, setDeptFuncionarioSelected] = useState("Design UI/UX");
 
-  function handleOpenFuncionarioDetails() {
-    navigation.navigate("funcionario");
-  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,6 +45,10 @@ export default function Funcionarios({ route, navigation }) {
     : dadosFuncionarios.filter(
       (funcionario) => funcionario.deptFuncionario === deptFuncionarioSelected
     );
+
+  function handleOpenFuncionarioDetails(funcionario) {
+    navigation.navigate("DetalhesFuncionario", { funcionario });
+  }
 
   return (
     <>
@@ -84,7 +85,7 @@ export default function Funcionarios({ route, navigation }) {
                 nomeFuncionario={item.nomeFuncionario}
                 cargoFuncionario={item.cargoFuncionario}
                 urlFoto={item.urlFoto}
-                onPress={handleOpenFuncionarioDetails}
+                onPress={() => handleOpenFuncionarioDetails(item)}
               />
             )}
             showsVerticalScrollIndicator={false}

@@ -25,6 +25,7 @@ import Login from "./src/screens/Login";
 import CadastrarLogin from "./src/screens/CadastrarLogin";
 import Home from "./src/screens/Home";
 import Funcionarios from "./src/screens/Funcionarios";
+import DetalhesFuncionario from "./src/screens/DetalhesFuncionario";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator(); // Crie o Stack Navigator
@@ -85,12 +86,12 @@ function MainTabs() {
             <Ionicons name="person-circle-outline" size={24} color={color} />
           ),
         }}
-      />
+      />*/}
       <Tab.Screen
-        name="funcionario"
-        component={Funcionario}
+        name="DetalhesFuncionario"
+        component={DetalhesFuncionario}
         options={{ tabBarButton: () => null }}
-      /> */}
+      />
 
     </Tab.Navigator>
   );
