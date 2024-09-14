@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { Text, View, TouchableOpacity, FlatList } from "react-native";
 import { styles } from "./styles";
-import HomeHeader from "../../components/HomeHeader";
+import Feather from "@expo/vector-icons/Feather";
+import ScreenHeader from "../../components/ScreenHeader";
 import Group from "../../components/Group";
 import FuncionarioCard from "../../components/FuncionarioCard";
 import supabase from "../../database/database";
 
 export default function Funcionarios({ route, navigation }) {
-  console.log("Funcionarios received route params:", route.params);
-  const { username } = route.params;
 
   const [deptFuncionario, setDeptFuncionario] = useState([
     "Todos",
@@ -50,10 +49,19 @@ export default function Funcionarios({ route, navigation }) {
     navigation.navigate("DetalhesFuncionario", { funcionario });
   }
 
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <>
       <View style={styles.container}>
-        <HomeHeader route={route} navigation={navigation} />
+        <View style={styles.cabecalho}>
+          <TouchableOpacity onPress={handleGoBack}>
+            <Feather name="arrow-left" size={24} color="#FFF" />
+          </TouchableOpacity>
+          <ScreenHeader title="Funcionários" />
+        </View>
         <FlatList // FlatList horizontal para os departamentos
           data={deptFuncionario}
           keyExtractor={(item) => item}
@@ -76,7 +84,6 @@ export default function Funcionarios({ route, navigation }) {
         />
 
         <View style={styles.containerColuna}>
-          <Text style={styles.textoTitulo1}>Funcionários</Text>
           <FlatList // FlatList vertical para os funcionários (filtrados)
             data={dadosFiltrados}
             keyExtractor={(item) => item.id.toString()}

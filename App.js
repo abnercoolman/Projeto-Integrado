@@ -26,6 +26,7 @@ import CadastrarLogin from "./src/screens/CadastrarLogin";
 import Home from "./src/screens/Home";
 import Funcionarios from "./src/screens/Funcionarios";
 import DetalhesFuncionario from "./src/screens/DetalhesFuncionario";
+import CadastrarFuncionario from "./src/screens/CadastrarFuncionario";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator(); // Crie o Stack Navigator
@@ -92,7 +93,11 @@ function MainTabs() {
         component={DetalhesFuncionario}
         options={{ tabBarButton: () => null }}
       />
-
+      <Tab.Screen
+        name="CadastrarFuncionario"
+        component={CadastrarFuncionario}
+        options={{ tabBarButton: () => null }}
+      />
     </Tab.Navigator>
   );
 }

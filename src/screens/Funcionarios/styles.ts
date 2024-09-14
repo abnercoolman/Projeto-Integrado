@@ -6,6 +6,18 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderColor: "#F7AC25",
   },
+  cabecalho: {
+    width: "100%",
+    paddingTop: 80,
+    paddingBottom: 20,
+    paddingHorizontal: 32,
+    backgroundColor: "#082777",
+    flexDirection: "row",
+    gap: 32,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
   containerColuna: {
     flex: 1,
     flexDirection: "column",

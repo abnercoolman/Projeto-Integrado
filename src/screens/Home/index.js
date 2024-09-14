@@ -23,9 +23,21 @@ export default function Home({ route, navigation }) {
     }
   };
 
-  // function handleOpenAdicionarFuncionarioPage() {
-  //   navigation.navigate("cadastroFuncionario");
-  // }
+  const handleOpenAdicionarFuncionarioPage = async () => {
+    try {
+      // Recupera email do AsyncStorage
+      const userEmail = await AsyncStorage.getItem('email');
+      if (userEmail) {
+        // Teste
+        // console.log("Navegando para CadastrarFuncionario com email:", { username: userEmail });
+        navigation.navigate("CadastrarFuncionario");
+      } else {
+        console.error('Email do usuário não encontrado no AsyncStorage');
+      }
+    } catch (error) {
+      console.error('Erro ao recuperar o email do usuário do AsyncStorage:', error);
+    }
+  };
 
   return (
     <>
@@ -44,7 +56,7 @@ export default function Home({ route, navigation }) {
           <TouchableOpacity
             style={
               styles.botaoHome
-            } /* onPress={handleOpenAdicionarFuncionarioPage} */
+            } onPress={handleOpenAdicionarFuncionarioPage}
           >
             <AntDesign name="adduser" size={75} color="#082777" />
             <Text style={styles.textoTitulo1}>Adicionar Funcionário</Text>
