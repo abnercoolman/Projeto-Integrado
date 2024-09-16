@@ -7,12 +7,18 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import ScreenHeader from "../../components/ScreenHeader";
 import { useNavigation } from "@react-navigation/native";
 import DropDownPicker from "react-native-dropdown-picker";
+import funcionarioService from "./funcionarioService";
+import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from 'expo-file-system';
+const avatarImage = require("./../../assets/images/avatar_image.png");
 
 export default function CadastrarFuncionario({ route, navigation }) {
 
     const handleGoBack = () => {
         navigation.goBack();
     };
+
+    const [fotoFuncionario, setFotoFuncionario] = useState(avatarImage);
     const [nomeFuncionario, setNomeFuncionario] = useState("");
     const [cargoFuncionario, setCargoFuncionario] = useState("");
     const [deptFuncionario, setDeptFuncionario] = useState(null);
@@ -22,32 +28,77 @@ export default function CadastrarFuncionario({ route, navigation }) {
     const [openDept, setOpenDept] = useState(false);
     const [openModelo, setOpenModelo] = useState(false);
 
-    const handleCadastrar = () => {
-        console.log({
-            nomeFuncionario,
-            cargoFuncionario,
-            deptFuncionario,
-            modeloTrabalho,
+    const handleSelecaoFotoFuncionario = async () => {
+        const fotoSelecionada = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            quality: 1,
+            aspect: [4, 4],
+            allowsEditing: true,
+
         });
+
+        if (!fotoSelecionada.canceled) {
+            // Converter a URI da imagem em um Blob
+            const fileInfo = await FileSystem.getInfoAsync(fotoSelecionada.assets[0].uri);
+            const blob = await FileSystem.readAsStringAsync(fotoSelecionada.assets[0].uri, {
+                encoding: FileSystem.EncodingType.Base64,
+            });
+            const file = {
+                uri: fotoSelecionada.assets[0].uri,
+                type: fileInfo.mimeType,
+                name: fotoSelecionada.assets[0].uri.split('/').pop(), // Extrai o nome do arquivo da URI
+            };
+            setFotoFuncionario(file);
+        }
     };
 
-    const urlAvatarFoto = "./../../assets/images/avatar_image.png";
+    const handleCadastrar = async () => {
+        // Verificar se os campos estão preenchidos
+        if (!nomeFuncionario || !cargoFuncionario || !deptFuncionario || !modeloTrabalho) {
+            console.error("Por favor, preencha todos os campos.");
+            return; // Impede o cadastro se algum campo estiver vazio
+        }
+
+        try {
+            // Fazer upload da imagem e obter a URL
+            const urlFoto = await funcionarioService.uparFotoFuncionario(fotoFuncionario);
+
+            // Cadastrar o funcionário no banco de dados
+            await funcionarioService.cadastrarFuncionario({
+                nomeFuncionario: nomeFuncionario,
+                cargoFuncionario: cargoFuncionario,
+                deptFuncionario: deptFuncionario,
+                modeloTrabalho: modeloTrabalho,
+                urlFoto: urlFoto,
+            });
+
+            console.log("Funcionário cadastrado com sucesso!");
+            // Lógica para limpar os campos ou navegar para outra tela após o cadastro
+        } catch (error) {
+            console.error("Erro ao cadastrar funcionário:", error);
+            // Lógica para exibir mensagem de erro ao usuário
+        }
+    };
+
 
     return (
         <>
             <View style={styles.container}>
                 <View style={styles.cabecalho}>
-                    <TouchableOpacity onPress={handleGoBack}>
+                    <TouchableOpacity /* onPress={handleGoBack} */>
                         <Feather name="arrow-left" size={24} color="#FFF" />
                     </TouchableOpacity>
                     <ScreenHeader title="Cadastrar Novo Funcionário" />
                 </View>
             </View>
             <View style={styles.containerColuna}>
-                <TouchableOpacity style={styles.containerColunaFoto}>
+                <TouchableOpacity
+                    onPress={handleSelecaoFotoFuncionario}
+                    style={styles.containerColunaFoto}
+                >
                     <Image
                         style={styles.image}
-                        source={require(urlAvatarFoto)}
+                        source={fotoFuncionario}
                         alt="foto do perfil do funcionário"
                     />
                     <View style={styles.containerLinha}>
@@ -101,7 +152,7 @@ export default function CadastrarFuncionario({ route, navigation }) {
                         color: "#082777",
                     }}
                     selectedItemLabelStyle={{
-                        color: '#082777',
+                        color: "#082777",
                     }}
                 />
 
@@ -124,7 +175,7 @@ export default function CadastrarFuncionario({ route, navigation }) {
                         color: "#082777",
                     }}
                     selectedItemLabelStyle={{
-                        color: '#082777',
+                        color: "#082777",
                     }}
                 />
                 <View style={styles.containerLinhaBotoes}>
