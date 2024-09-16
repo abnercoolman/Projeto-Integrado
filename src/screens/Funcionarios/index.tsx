@@ -19,7 +19,7 @@ export default function Funcionarios({ route, navigation }) {
   ]);
 
   const [dadosFuncionarios, setDadosFuncionarios] = useState([]);
-  const [deptFuncionarioSelected, setDeptFuncionarioSelected] = useState("Design UI/UX");
+  const [deptFuncionarioSelected, setDeptFuncionarioSelected] = useState("Todos");
 
   useEffect(() => {
     const fetchData = async () => {
