@@ -12,6 +12,11 @@ Autores:
 
 - Mat: 2022011873 - Emanohelly Pereira de Sousa - ([**@emanohelly**](https://github.com/Emanohelly)).
 
+## Credenciais para testar o app com dados pré-inseridos:
+
+- **E-mail**: *mobile@test.com*
+- **Senha**: *senha123*
+
 ## Relatórios
 
 [**Link dos relatórios**](https://drive.google.com/drive/folders/1fXEBcSPUvsLEaJuTThGrmDdA6EXgAGQO)
