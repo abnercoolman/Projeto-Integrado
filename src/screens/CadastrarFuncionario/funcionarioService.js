@@ -30,12 +30,24 @@ const funcionarioService = {
 
     async cadastrarFuncionario(funcionarioData) {
         try {
-            const { data, error } = await supabase
+            const { count, error: countError } = await supabase
                 .from("funcionarios")
-                .insert([funcionarioData]);
+                .select("*", { count: "exact" }); // Conta o número exato de linhas
 
-            if (error) {
-                throw new Error(`Erro ao cadastrar funcionário: ${error.message}`);
+            if (countError) {
+                throw new Error(`Erro ao contar funcionários: ${countError.message}`);
+            }
+
+            const novoId = count + 1;
+
+            const funcionarioComId = { ...funcionarioData, id: novoId };
+
+            const { data, error: insertError } = await supabase
+                .from("funcionarios")
+                .insert([funcionarioComId]);
+
+            if (insertError) {
+                throw new Error(`Erro ao cadastrar funcionário: ${insertError.message}`);
             }
 
             return data;

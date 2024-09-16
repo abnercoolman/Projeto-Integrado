@@ -21,7 +21,6 @@ export default function Funcionarios({ route, navigation }) {
   const [dadosFuncionarios, setDadosFuncionarios] = useState([]);
   const [deptFuncionarioSelected, setDeptFuncionarioSelected] = useState("Design UI/UX");
 
-
   useEffect(() => {
     const fetchData = async () => {
       let { data: funcionarios, error } = await supabase
@@ -37,6 +36,21 @@ export default function Funcionarios({ route, navigation }) {
     };
 
     fetchData();
+
+    // Criar o canal de subscrição
+    const subscription = supabase
+      .channel('funcionarios-channel') // Nome do canal
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'funcionarios' }, (payload) => {
+        console.log('Mudança na tabela funcionarios:', payload);
+        // Atualizar os dados dos funcionários
+        fetchData(); // Ou implementar uma lógica mais eficiente para atualizar apenas os dados modificados
+      })
+      .subscribe();
+
+    // Limpar a subscrição quando o componente for desmontado
+    return () => {
+      supabase.removeChannel(subscription);
+    };
   }, []);
 
   const dadosFiltrados = deptFuncionarioSelected === "Todos"
