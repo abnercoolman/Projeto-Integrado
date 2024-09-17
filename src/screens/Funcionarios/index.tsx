@@ -5,7 +5,7 @@ import Feather from "@expo/vector-icons/Feather";
 import ScreenHeader from "../../components/ScreenHeader";
 import Group from "../../components/Group";
 import FuncionarioCard from "../../components/FuncionarioCard";
-import supabase from "../../database/database";
+import * as funcionariosScreenService from "./funcionariosScreenService";
 
 export default function Funcionarios({ route, navigation }) {
 
@@ -23,41 +23,20 @@ export default function Funcionarios({ route, navigation }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      let { data: funcionarios, error } = await supabase
-        .from("funcionarios")
-        .select("*");
-
-      if (error) {
-        console.error("Erro ao buscar funcionários:", error);
-      } else {
-        setDadosFuncionarios(funcionarios);
-        console.log(funcionarios);
-      }
+      const funcionarios = await funcionariosScreenService.fetchFuncionarios();
+      setDadosFuncionarios(funcionarios);
     };
 
     fetchData();
 
-    // Criar o canal de subscrição
-    const subscription = supabase
-      .channel('funcionarios-channel') // Nome do canal
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'funcionarios' }, (payload) => {
-        console.log('Mudança na tabela funcionarios:', payload);
-        // Atualizar os dados dos funcionários
-        fetchData(); // Ou implementar uma lógica mais eficiente para atualizar apenas os dados modificados
-      })
-      .subscribe();
+    const subscription = funcionariosScreenService.subscribeToFuncionarioChanges(fetchData);
 
-    // Limpar a subscrição quando o componente for desmontado
     return () => {
-      supabase.removeChannel(subscription);
+      funcionariosScreenService.unsubscribeFromFuncionarioChanges(subscription);
     };
   }, []);
 
-  const dadosFiltrados = deptFuncionarioSelected === "Todos"
-    ? dadosFuncionarios
-    : dadosFuncionarios.filter(
-      (funcionario) => funcionario.deptFuncionario === deptFuncionarioSelected
-    );
+  const dadosFiltrados = funcionariosScreenService.filterFuncionarios(dadosFuncionarios, deptFuncionarioSelected);
 
   function handleOpenFuncionarioDetails(funcionario) {
     navigation.navigate("DetalhesFuncionario", { funcionario });
