@@ -1,7 +1,6 @@
 # Projeto Integrado IV-Módulo final
 
-# Cariri RH - Sistema Web
-
+# Cariri RH - App Mobile
 Este repositório consiste no desenvolvimento de uma aplicação web com foco na gestão de recursos humanos. O projeto é parte da disciplina de **“Projeto Integrado IV”** da Universidade Federal do Cariri (UFCA).
 
 Autores:
