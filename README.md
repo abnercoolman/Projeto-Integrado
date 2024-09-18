@@ -14,8 +14,9 @@ Autores:
 
 ## Credenciais para testar o app com dados pré-inseridos:
 
-- **E-mail**: *mobile@test.com*
-- **Senha**: *senha123*
+| Credenciais | Snack expo |
+| --- | --- |
+| **E-mail**: *mobile@test.com* <br> **Senha**: *senha123* | [<img src="https://github.com/user-attachments/assets/10eff159-b5dd-4d92-8b51-54c17805b723" width="75">](https://snack.expo.dev/@abnercoolman/projetointegradoiv?platform=ios) |
 
 ## Relatórios
 
