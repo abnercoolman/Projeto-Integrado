@@ -37,11 +37,13 @@ Desenvolver uma plataforma, com foco na gestão de recursos humanos.
 
 ### Prints do App:
 
-| Ícone                                                                                                   | Página                                                                                                  | Página                                                                                                  |
-| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| **_Ícone do app_**                                                                                      | **_Login_**                                                                                             | **_Cadastro_**                                                                                          |
-| <img src="https://github.com/user-attachments/assets/ac7b96f6-bc11-42c5-8aaa-dc89f0bb3e9d" width="200"> | <img src="https://github.com/user-attachments/assets/1781ed50-c7e3-46b1-aef1-e8de30ed76af" width="200"> | <img src="https://github.com/user-attachments/assets/339e3ebd-089b-42bd-847d-9ff8d0c0f513" width="200"> |
-| **_Home_**                                                                                              | **_Detalhes do Funcionário_**                                                                           | **_Folha de Ponto_**                                                                                    |
-| <img src="https://github.com/user-attachments/assets/84c80dd5-863d-4242-b6e8-30f490b1262c" width="200"> | <img src="https://github.com/user-attachments/assets/80e1838f-a7c1-4cdb-a803-3bc81a4feff3" width="200"> | <img src="https://github.com/user-attachments/assets/26de83e2-7ad2-4d1c-a6ca-56eb231a8d62" width="200"> |
-| **_Perfil do Gestor de RH_**                                                                            |                                                                                                         |                                                                                                         |
-| <img src="https://github.com/user-attachments/assets/dd3549ae-6aeb-4a71-9077-55d088f657d6" width="200"> |                                                                                                         |                                                                                                         |
+| Ícone | Página | Página |
+| --- | --- | --- |
+| **_Ícone do app_** | **_Splash_** | **_Login_** |
+| <img src="https://github.com/user-attachments/assets/10eff159-b5dd-4d92-8b51-54c17805b723" width="200"> | <img src="https://github.com/user-attachments/assets/d7d878f3-e6ff-4fe4-914e-30857ed9e1eb" width="200"> | <img src="https://github.com/user-attachments/assets/8074bbf2-3c12-47ec-b38a-84c56debd4ef" width="200"> |
+| **_Cadastro_** | **_Home_** | **_Funcionários_** |
+| <img src="https://github.com/user-attachments/assets/ff638236-5a53-41ee-b67f-baad04186756" width="200"> | <img src="https://github.com/user-attachments/assets/33468c2b-7feb-430c-a4b8-751dfff03a85" width="200"> | <img src="https://github.com/user-attachments/assets/d155fd7f-23eb-45a7-91d3-7cff708a9a53" width="200"> |
+| **_Detalhes do Funcionário_** | **_Cadastro de Funcionário_** | **_Exclusão de Funcionário_** |
+| <img src="https://github.com/user-attachments/assets/4d6b808f-8ee6-4813-b4e4-43fd9687573b" width="200"> | <img src="https://github.com/user-attachments/assets/a014c981-239f-4fdf-97f5-1413bd897745" width="200"> | <img src="" width="200"> |
+| **_Perfil do Gestor de RH_** | **_Folha de Pontos_** |  |
+| <img src="" width="200"> | <img src="" width="200"> |  |
