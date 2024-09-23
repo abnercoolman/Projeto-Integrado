@@ -110,4 +110,59 @@ export const styles = StyleSheet.create({
     fontFamily: "Inter_500Medium",
     fontSize: 16,
   },
+  // Estilos do Modal
+  modalContainer: {
+    flex: 1,
+    paddingHorizontal: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fundo transparente
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: 'center',
+  },
+  modalText: {
+    marginBottom: 20,
+    textAlign: 'center',
+    fontSize: 14,
+    fontFamily: "Inter_400Regular",
+    color: "#000",
+  },
+  funcionarioNome: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 14,
+    color: "#071C50",
+  },
+  modalButtons: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    paddingHorizontal: 65,
+    alignItems: "center",
+    alignContent: "center",
+  },
+  modalButtonYes: {
+    backgroundColor: '#3F861E', // Ou a cor que você preferir
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 5,
+  },
+  modalButtonNo: {
+    backgroundColor: '#CA2E2E', // Ou a cor que você preferir
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 5,
+  },
+  modalButtonText: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 14,
+    color: 'white',
+    textAlign: 'center',
+  },
+
 });
